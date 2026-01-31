@@ -4,45 +4,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>De-Angies Jewelry</title>
+  <title>De-Angies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Cinzel:wght@400;700;900&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif
+      font-family: 'Montserrat', sans-serif;
     }
 
     body {
       background: #fff;
-      color: #111
+      color: #111;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Cinzel', serif;
     }
 
     header {
       background: #000;
-      color: #d4af37;
+      color: #facd12;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
+      padding: 15px 40px;
       position: sticky;
       top: 0;
       z-index: 1000
     }
 
+    .header-left {
+      flex: 1;
+    }
+
+    .header-center {
+      flex: 2;
+      display: flex;
+      justify-content: center;
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+    }
+
     header h1 {
-      font-size: 1.4rem
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #facd12;
+      margin: 0;
     }
 
     nav a {
       color: #fff;
-      margin-left: 20px;
+      margin: 0 15px;
       text-decoration: none;
-      font-size: .9rem
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+      transition: color 0.3s;
     }
 
     nav a:hover {
-      color: #d4af37
+      color: #facd12
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 5px 10px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 40px;
+      overflow: hidden;
+      border: 1px solid transparent;
+    }
+
+    .search-container.active {
+      width: 200px;
+      background: #111;
+      border-color: #facd12;
+    }
+
+    .search-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: 0 5px;
+      width: 0;
+      transition: width 0.3s ease;
+      outline: none;
+      font-size: 0.85rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .search-container.active .search-input {
+      width: 140px;
+    }
+
+    .search-icon-btn {
+      background: none;
+      border: none;
+      color: #facd12;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      transition: transform 0.3s;
+    }
+
+    .search-icon-btn:hover {
+      transform: scale(1.1);
     }
 
     /* Hamburger Menu Styles */
@@ -89,7 +186,12 @@
 
     section h2 {
       text-align: center;
-      margin-bottom: 40px
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #111;
     }
 
     .products {
@@ -134,23 +236,39 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #d4af37;
-      font-size: 1.8rem;
-      width: 45px;
-      height: 45px;
+      background: rgba(11, 11, 11, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #facd12;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 5;
-      transition: 0.3s
+      z-index: 10;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(250, 205, 18, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .arrow:hover {
-      background: #d4af37;
-      color: #000
+      background: #facd12;
+      color: #000;
+      transform: translateY(-50%) scale(1.15);
+      box-shadow: 0 0 25px rgba(250, 205, 18, 0.5);
+      border-color: #facd12;
+    }
+
+    .arrow svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .arrow.right {
@@ -236,7 +354,15 @@
         transform: rotate(-45deg) translate(5px, -5px);
       }
 
-      nav {
+      .header-center {
+        display: none !important;
+      }
+
+      .header-right {
+        flex: 0;
+      }
+
+      nav.mobile-nav {
         position: absolute;
         width: 100%;
         height: 0;
@@ -248,22 +374,22 @@
         align-items: center;
         transition: height 0.5s ease;
         display: flex;
+        z-index: 999;
       }
 
-      nav.active {
-        height: 400px;
-        /* Adjust as needed based on content */
-        border-bottom: 2px solid #d4af37;
+      nav.mobile-nav.active {
+        height: 350px;
+        border-bottom: 2px solid #facd12;
       }
 
-      nav a {
-        margin: 20px 0;
-        font-size: 1.2rem;
+      nav.mobile-nav a {
+        margin: 15px 0;
+        font-size: 1.1rem;
         opacity: 0;
         transition: opacity 0.5s ease 0.2s;
       }
 
-      nav.active a {
+      nav.mobile-nav.active a {
         opacity: 1;
       }
     }
@@ -273,19 +399,36 @@
 <body>
 
   <header>
-    <h1>De-Angies Jewelry</h1>
+    <div class="header-left">
+      <h1>De-Angies</h1>
+    </div>
+
     <div class="hamburger">
       <span></span>
       <span></span>
       <span></span>
     </div>
-    <nav>
+
+    <nav class="header-center">
       <a href="#watches">Watches</a>
       <a href="#necklaces">Combined Sets</a>
       <a href="#shoes">Shoes</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <div class="header-right">
+      <div class="search-container" id="searchContainer">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search products...">
+        <button class="search-icon-btn" id="searchBtn">
+          <svg style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2;"
+            viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
   </header>
 
   <div class="hero">
@@ -298,12 +441,20 @@
   <section id="watches">
     <h2>Wrist Watches</h2>
     <div class="slider" data-index="0">
-      <span class="arrow left">&lt;</span>
-      <span class="arrow right">&gt;</span>
+      <span class="arrow left">
+        <svg viewBox="0 0 24 24">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </span>
+      <span class="arrow right">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </span>
       <div class="products slider-track">
         <div class="card"><img src="IMG_4486.jpeg">
           <h3>Rolex Gold- Silver Watch</h3>
-          <p class="price">GHS 300</p>
+          <p class="price">GHS 550</p>
         </div>
         <div class="card"><img src="cartier.jpeg">
           <h3>Cartier Watch</h3>
@@ -328,32 +479,40 @@
   <section id="necklaces">
     <h2>Combined Set</h2>
     <div class="slider" data-index="0">
-      <span class="arrow left">&lt;</span>
-      <span class="arrow right">&gt;</span>
+      <span class="arrow left">
+        <svg viewBox="0 0 24 24">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </span>
+      <span class="arrow right">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </span>
       <div class="products slider-track">
         <div class="card"><img src="dior.jpeg">
           <h3>Dior Set</h3>
-          <p class="price">GHS 350</p>
+          <p class="price">GHS 450</p>
         </div>
         <div class="card"><img src="guess.jpeg">
           <h3>Guess Set</h3>
-          <p class="price">GHS 350</p>
+          <p class="price">GHS 450</p>
         </div>
         <div class="card"><img src="curren.jpeg">
           <h3>Curren set</h3>
-          <p class="price">GHS 350</p>
+          <p class="price">GHS 450</p>
         </div>
         <div class="card"><img src="cartierrr.jpeg">
           <h3>Cartier Set</h3>
-          <p class="price">GHS 350</p>
+          <p class="price">GHS 450</p>
         </div>
         <div class="card"><img src="tisot.jpeg">
           <h3>Tisot Set</h3>
-          <p class="price">GHS 350</p>
+          <p class="price">GHS 450</p>
         </div>
         <div class="card"><img src="rolex.jpeg">
           <h3>Rolex Set</h3>
-          <p class="price">GHS 350</p>
+          <p class="price">GHS 450</p>
         </div>
       </div>
     </div>
@@ -362,8 +521,16 @@
   <section id="shoes">
     <h2>Shoes</h2>
     <div class="slider" data-index="0">
-      <span class="arrow left">&lt;</span>
-      <span class="arrow right">&gt;</span>
+      <span class="arrow left">
+        <svg viewBox="0 0 24 24">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </span>
+      <span class="arrow right">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </span>
       <div class="products slider-track">
         <div class="card"><img src="frankPerry.JPG">
           <h3>Frank Perry Black Double-Buckle Leather Shoe</h3>
@@ -389,54 +556,139 @@
     </div>
   </section>
 
-  <section id="about" style="background:linear-gradient(#111,#0b0b0b);color:#eee;padding:90px 40px;">
-    <div style="max-width:1000px;margin:auto;text-align:center;">
-      <p style="color:#d4af37;letter-spacing:4px;font-size:.8rem;margin-bottom:15px;">OUR STORY</p>
-      <h2 style="font-size:3rem;margin-bottom:25px;font-family:Georgia,serif;">About De-Angies Jewelry</h2>
-      <p style="max-width:800px;margin:0 auto 50px;color:#bbb;line-height:1.8;">
-        Founded with a passion for timeless elegance, De-Angies Jewelry brings you the finest collection
-        of watches, necklaces, and leather shoes. We believe in making luxury accessible to everyone.
+  <section id="about" style="background: #111; color: #eee; padding: 100px 40px;">
+    <div style="max-width: 1100px; margin: auto; text-align: center;">
+      <p
+        style="color: #d4af37; letter-spacing: 5px; font-size: 0.9rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif; font-weight: 600;">
+        OUR STORY</p>
+      <h2 style="font-size: 3rem; margin-bottom: 30px; font-family: 'Cinzel', serif; font-weight: 700; color: #fff;">
+        About De-Angies</h2>
+      <p style="max-width: 800px; margin: 0 auto 60px; color: #bbb; line-height: 1.8; font-size: 1.1rem;">
+        Founded with a passion for timeless elegance, De-Angies brings you the finest collection
+        of watches, necklaces, and leather shoes. We believe everyone deserves to own beautiful jewelry.
       </p>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:35px;margin-top:40px;">
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
 
-        <div style="background:#0f0f0f;border-radius:14px;padding:40px 30px;box-shadow:0 10px 25px rgba(0,0,0,.5);">
-          <div style="font-size:2.2rem;color:#d4af37;margin-bottom:20px;">🏅</div>
-          <h3 style="margin-bottom:15px;font-family:Georgia,serif;">Premium Quality</h3>
-          <p style="color:#aaa;line-height:1.7;">Every piece in our collection is carefully selected for its exceptional
-            craftsmanship.</p>
+        <!-- Premium Quality -->
+        <div style="background: #151515; border-radius: 4px; padding: 50px 30px; text-align: center;">
+          <div
+            style="width: 80px; height: 80px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px;">
+            <svg style="width: 35px; height: 35px; fill: none; stroke: #facd12; stroke-width: 2;" viewBox="0 0 24 24">
+              <path d="M12 15l-2 5 2-1 2 1-2-5z" />
+              <circle cx="12" cy="9" r="6" />
+            </svg>
+          </div>
+          <h3
+            style="color: #fff; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 600;">
+            Premium Quality</h3>
+          <p style="color: #888; line-height: 1.7; font-family: 'Montserrat', sans-serif; font-size: 0.95rem;">Every
+            piece in our collection is carefully selected for its exceptional craftsmanship and superior materials.</p>
         </div>
 
-        <div style="background:#0f0f0f;border-radius:14px;padding:40px 30px;box-shadow:0 10px 25px rgba(0,0,0,.5);">
-          <div style="font-size:2.2rem;color:#d4af37;margin-bottom:20px;">🛡️</div>
-          <h3 style="margin-bottom:15px;font-family:Georgia,serif;">Authenticity Guaranteed</h3>
-          <p style="color:#aaa;line-height:1.7;">We guarantee the authenticity of every item. Shop with confidence every
-            time.</p>
+        <!-- Authenticity Guaranteed -->
+        <div style="background: #151515; border-radius: 4px; padding: 50px 30px; text-align: center;">
+          <div
+            style="width: 80px; height: 80px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px;">
+            <svg style="width: 35px; height: 35px; fill: none; stroke: #facd12; stroke-width: 2;" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3
+            style="color: #fff; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 600;">
+            Authenticity Guaranteed</h3>
+          <p style="color: #888; line-height: 1.7; font-family: 'Montserrat', sans-serif; font-size: 0.95rem;">We
+            guarantee the authenticity of every item. Shop with confidence knowing you're getting genuine products.</p>
         </div>
 
-        <div style="background:#0f0f0f;border-radius:14px;padding:40px 30px;box-shadow:0 10px 25px rgba(0,0,0,.5);">
-          <div style="font-size:2.2rem;color:#d4af37;margin-bottom:20px;">💎</div>
-          <h3 style="margin-bottom:15px;font-family:Georgia,serif;">Affordable Luxury</h3>
-          <p style="color:#aaa;line-height:1.7;">Experience luxury without the premium price tag. Elegance made
-            accessible.</p>
+        <!-- Affordable Luxury -->
+        <div style="background: #151515; border-radius: 4px; padding: 50px 30px; text-align: center;">
+          <div
+            style="width: 80px; height: 80px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px;">
+            <svg style="width: 35px; height: 35px; fill: none; stroke: #facd12; stroke-width: 2;" viewBox="0 0 24 24">
+              <path d="M6 3h12l4 6-10 12L2 9z" />
+              <path d="M11 3L8 9l4 12 4-12-3-6" />
+              <path d="M2 9h20" />
+            </svg>
+          </div>
+          <h3
+            style="color: #fff; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 600;">
+            Affordable Luxury</h3>
+          <p style="color: #888; line-height: 1.7; font-family: 'Montserrat', sans-serif; font-size: 0.95rem;">
+            Experience luxury without the premium price tag. We believe everyone deserves to own beautiful jewelry.</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <section id="contact" class="contact">
-    <h2>Get in Touch</h2>
+  <section id="contact" class="contact" style="padding: 100px 40px;">
+    <h2 style="font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 50px;">Get in Touch</h2>
     <div class="contact-box">
-      <div class="contact-card">
-        <h3>📞 Phone</h3>
-        <p>+233 241146149</p>
+      <!-- Phone Card -->
+      <div class="contact-card"
+        style="background: #151515; border-radius: 12px; padding: 40px; min-width: 280px; text-align: center;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px;">
+          <svg style="width: 24px; height: 24px; fill: #facd12;" viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27c1.12.45 2.33.69 3.58.69a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.24 2.46.69 3.58a1 1 0 01-.27 1.11z" />
+          </svg>
+          <h3
+            style="color: #facd12; font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px;">
+            Phone</h3>
+        </div>
+        <p style="color: #f7f7f7; font-size: 1.1rem; font-family: 'Montserrat', sans-serif;">+233 241146149</p>
       </div>
-      <div class="contact-card">
-        <h3>💬 WhatsApp</h3><a href="https://wa.me/233 241146149">Chat with us</a>
+
+      <!-- WhatsApp Card -->
+      <div class="contact-card"
+        style="background: #151515; border-radius: 12px; padding: 40px; min-width: 280px; text-align: center;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px;">
+          <svg style="width: 24px; height: 24px; fill: #facd12;" viewBox="0 0 24 24">
+            <path
+              d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-2 12H6v-2h12v2m0-3H6V9h12v2m0-3H6V6h12v2z" />
+          </svg>
+          <h3
+            style="color: #facd12; font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px;">
+            WhatsApp</h3>
+        </div>
+        <a href="https://wa.me/233241146149"
+          style="color: #f7f7f7; text-decoration: none; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; border-bottom: 1px solid #facd12; padding-bottom: 2px;">Chat
+          with us</a>
       </div>
-      <div class="contact-card">
-        <h3>🌐 Social Media</h3><a href="#">Instagram</a><br><a href="#">Facebook</a>
+
+      <!-- Social Media Card -->
+      <div class="contact-card"
+        style="background: #151515; border-radius: 12px; padding: 40px; min-width: 280px; text-align: center;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px;">
+          <svg style="width: 24px; height: 24px; fill: #facd12;" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <path
+              d="M12 2a10 10 0 0110 10 10 10 0 01-10 10A10 10 0 012 12 10 10 0 0112 2m0 2a8 8 0 00-8 8c0 1.5.4 2.8 1.1 4l3.4-3.4c-.1-.2-.1-.4-.1-.6 0-2 1.6-3.6 3.6-3.6s3.6 1.6 3.6 3.6-1.6 3.6-3.6 3.6c-.2 0-.4 0-.6-.1L7.4 18.9c1.2.7 2.5 1.1 4 1.1a8 8 0 008-8 8 8 0 00-8-8z" />
+          </svg>
+          <h3
+            style="color: #facd12; font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px;">
+            Social Media</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+          <a href="https://www.instagram.com/angelinaaidoo/" target="_blank"
+            style="display: flex; align-items: center; gap: 8px; color: #f7f7f7; text-decoration: none; font-family: 'Montserrat', sans-serif;">
+            <svg style="width: 20px; height: 20px; fill: #facd12;" viewBox="0 0 24 24">
+              <path
+                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m4.4 3a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3m5-2.25a1.25 1.25 0 011.25 1.25 1.25 1.25 0 01-1.25 1.25 1.25 1.25 0 01-1.25-1.25 1.25 1.25 0 011.25-1.25z" />
+            </svg>
+            Instagram
+          </a>
+          <a href="#"
+            style="display: flex; align-items: center; gap: 8px; color: #f7f7f7; text-decoration: none; font-family: 'Montserrat', sans-serif;">
+            <svg style="width: 20px; height: 20px; fill: #facd12;" viewBox="0 0 24 24">
+              <path
+                d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 4.97 3.66 9.08 8.44 9.83v-6.95h-2.53v-2.88h2.53v-2.2c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.88h-2.33v6.95c4.78-.75 8.44-4.86 8.44-9.83 0-5.53-4.5-10.02-10-10.02z" />
+            </svg>
+            Facebook
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -446,7 +698,9 @@
       style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;max-width:1200px;margin:auto;">
 
       <div>
-        <h2 style="color:#d4af37;margin-bottom:15px;">De-Angies Jewelry</h2>
+        <h2
+          style="color:#facd12;margin-bottom:15px; font-family: 'Cinzel', serif; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 4px; font-weight: 700;">
+          De-Angies</h2>
         <p style="line-height:1.7;">Your destination for luxury watches, exquisite jewelry, and premium leather shoes.
           Experience timeless elegance.</p>
       </div>
@@ -462,24 +716,31 @@
 
       </div>
 
-
-
       <div>
-        <h3 style="color:#fff;margin-bottom:15px;">Stay Connected</h3>
-        <p style="margin-bottom:15px;">Subscribe for exclusive offers and new arrivals.</p>
-        <div style="display:flex;gap:10px;margin-bottom:15px;">
-          <input type="email" placeholder="Your email" style="padding:10px;border:none;border-radius:5px;flex:1;">
-          <button
-            style="background:#d4af37;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;">Subscribe</button>
+        <h3
+          style="color:#facd12; margin-bottom:15px; font-family: 'Cinzel', serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;">
+          Connect</h3>
+        <div style="display: flex; gap: 25px; align-items: center; margin-top: 10px;">
+          <a href="https://www.instagram.com/angelinaaidoo/" target="_blank"
+            style="color: #facd12; text-decoration: none; transition: all 0.3s ease;">
+            <svg style="width: 28px; height: 28px; fill: currentColor;" viewBox="0 0 24 24">
+              <path
+                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m4.4 3a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3m5-2.25a1.25 1.25 0 011.25 1.25 1.25 1.25 0 01-1.25 1.25 1.25 1.25 0 01-1.25-1.25 1.25 1.25 0 011.25-1.25z" />
+            </svg>
+          </a>
+          <a href="#" style="color: #facd12; text-decoration: none; transition: all 0.3s ease;">
+            <svg style="width: 28px; height: 28px; fill: currentColor;" viewBox="0 0 24 24">
+              <path
+                d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 4.97 3.66 9.08 8.44 9.83v-6.95h-2.53v-2.88h2.53v-2.2c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.88h-2.33v6.95c4.78-.75 8.44-4.86 8.44-9.83 0-5.53-4.5-10.02-10-10.02z" />
+            </svg>
+          </a>
         </div>
-        <p style="font-size:1.2rem;">📸 &nbsp; 📘 &nbsp; 🐦</p>
       </div>
-
     </div>
 
     <div
       style="border-top:1px solid #222;margin-top:50px;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;max-width:1200px;margin-left:auto;margin-right:auto;font-size:0.85rem;">
-      <p>© 2025 De-Angies Jewelry. All rights reserved.</p>
+      <p>© 2026 De-Angies. All rights reserved.</p>
       <p>Privacy Policy &nbsp; | &nbsp; Terms of Service</p>
     </div>
   </footer>
@@ -541,20 +802,81 @@
 
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('nav');
+    const headerNav = document.querySelector('nav.header-center');
 
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
-      nav.classList.toggle('active');
+      headerNav.classList.toggle('active');
+      // On mobile, we might need to add a specialized class for the dropdown
+      headerNav.classList.toggle('mobile-nav');
     });
 
     // Close menu when a link is clicked
     document.querySelectorAll('nav a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
-        nav.classList.remove('active');
+        headerNav.classList.remove('active');
+        headerNav.classList.remove('mobile-nav');
       });
     });
+
+    // Integrated Search System
+    const searchBtn = document.getElementById('searchBtn');
+    const searchContainer = document.getElementById('searchContainer');
+    const searchInput = document.getElementById('searchInput');
+
+    searchBtn.addEventListener('click', (e) => {
+      if (!searchContainer.classList.contains('active')) {
+        e.preventDefault();
+        searchContainer.classList.add('active');
+        searchInput.focus();
+      } else {
+        performSearch();
+      }
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    // Auto-close search on outside click
+    document.addEventListener('mousedown', (e) => {
+      if (!searchContainer.contains(e.target) && searchContainer.classList.contains('active')) {
+        searchContainer.classList.remove('active');
+      }
+    });
+
+    function performSearch() {
+      const query = searchInput.value.toLowerCase().trim();
+      if (!query) return;
+
+      const keywords = {
+        'watch': '#watches', 'rolex': '#watches', 'dw': '#watches', 'g-shock': '#watches',
+        'set': '#necklaces', 'necklace': '#necklaces', 'jewelry': '#necklaces',
+        'shoe': '#shoes', 'leather': '#shoes', 'boots': '#shoes', 'frank': '#shoes',
+        'about': '#about', 'story': '#about', 'history': '#about',
+        'contact': '#contact', 'whatsapp': '#contact', 'location': '#contact', 'address': '#contact'
+      };
+
+      let found = false;
+      for (const key in keywords) {
+        if (query.includes(key)) {
+          const target = document.querySelector(keywords[key]);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            searchContainer.classList.remove('active');
+            found = true;
+            break;
+          }
+        }
+      }
+
+      if (!found) {
+        alert('We couldn\'t find "' + query + '" on our site. Try searching for "watches", "shoes", or "necklaces".');
+      }
+    }
   </script>
 
 
